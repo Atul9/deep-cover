@@ -63,6 +63,13 @@ module DeepCover
       `cd #{dir} && nyc report --reporter=text #{html}`
     end
 
+    def report_html(output: nil, **options)
+      return if output.nil?
+      covered_codes = select(&:has_executed?)
+      Reporter::HTML.save(covered_codes, output: Pathname(output).expand_path, **options)
+      `open #{output}/index.html`
+    end
+
     def basic_report
       missing = map do |covered_code|
         if covered_code.has_executed?
@@ -80,6 +87,7 @@ module DeepCover
     end
 
     def report(**options)
+      return report_html(**options)
       if Reporter::Istanbul.available?
         report_istanbul(**options)
       else
