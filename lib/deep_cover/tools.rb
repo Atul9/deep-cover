@@ -6,6 +6,7 @@ module DeepCover
   require_relative 'tools/silence_warnings'
   extend Tools::SilenceWarnings
   require_relative_dir 'tools'
+  extend Tools::Memoize
 
   # The functions defined in the submodules of Tools can be accessed
   # either by extending the desired module, or all of them by extending
