@@ -93,7 +93,7 @@ module DeepCover
       end
 
       def process
-        Bundler.with_clean_env do
+        with_clean_env do
           system("cd #{@main_path} && #{@command}")
         end
       end
@@ -105,8 +105,15 @@ module DeepCover
 
       def bundle
         puts "Running `bundle install`"
-        Bundler.with_clean_env do
+        with_clean_env do
           `cd #{@dest_root} && bundle`
+        end
+      end
+
+      def with_clean_env
+        return yield unless defined?(Bundler)
+        Bundler.with_clean_env do
+          yield
         end
       end
 

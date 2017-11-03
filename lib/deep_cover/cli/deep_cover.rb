@@ -1,5 +1,4 @@
 module DeepCover
-  require 'bundler/setup'
   require 'slop'
   require 'deep_cover'
   require_relative_dir '.'
